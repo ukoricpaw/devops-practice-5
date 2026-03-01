@@ -12,6 +12,9 @@ FROM node:18-alpine as runtime
 
 WORKDIR /app
 
+COPY package*.json ./
+RUN npm install --only=production
+
 COPY --from=builder /app/dist ./dist
 
 EXPOSE 8080
@@ -19,4 +22,4 @@ EXPOSE 8080
 HEALTHCHECK --interval=30s --timeout=5s --retries=3 \
   CMD curl -f http://localhost/ || exit 1
 
-CMD ["npm", "run", "start"]
+CMD ["node", "dist/main.js"]
