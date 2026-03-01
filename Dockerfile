@@ -2,19 +2,14 @@ FROM node:18-alpine as builder
 
 WORKDIR /app
 
-COPY package*.json ./
-
-RUN npm install --production
-
 COPY . .
 
+RUN npm install
 RUN npm run build
 
 FROM node:18-alpine as runtime
 
 WORKDIR /app
-
-COPY package*.json ./
 
 COPY --from=builder /app/dist ./dist
 
