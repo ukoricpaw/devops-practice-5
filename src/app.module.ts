@@ -12,7 +12,7 @@ import { AppService } from './app.service';
       password: process.env.DB_PASSWORD,
       username: process.env.DB_USERNAME,
       entities: [],
-      database: 'pgWithNest',
+      database: process.env.DB_NAME,
       synchronize: true,
       logging: true,
     }),
